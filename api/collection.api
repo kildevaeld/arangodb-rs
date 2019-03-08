@@ -1,0 +1,120 @@
+import ./models.api
+
+record CollectionProperties {
+    journalSize i32?
+    replicationFactor i32?
+    keyOptions KeyOptions?
+    name string?
+    waitForSync bool?
+    doCompact bool?
+    isVolatile bool?
+    /*shardKeys string[]?*/
+    numberOfShards i32?
+    isSystem bool?
+    type i32?
+    indexBuckets i32?
+    distributeShardsLike string?
+}
+
+record KeyOptions {
+    allowUserKeys bool
+    type string
+    increment i32
+    offset i32
+}
+
+record Collection {
+    id string
+    name string
+    status i32
+    type i32
+    isSystem bool
+}
+
+/*
+    Manage Collections
+*/
+
+post /_api/collection {
+    auth token
+
+    query {
+        waitForSyncReplication i8?
+        enforceReplicationFactor i8?
+    }
+
+    body CollectionProperties
+
+    returns {
+        id string
+        name string
+        waitForSync bool
+        isVolatile bool
+        isSystem bool
+        status i32
+        type i32
+        error bool
+        code i16
+    }
+}
+
+delete /_api/collection/:collection_name {
+    auth token
+    query {
+        isSystem bool?
+    }
+
+    returns {
+        error bool
+        id string
+    }
+}
+
+put /_api/collection/:collection_name/truncate {
+    auth token
+    returns {
+        id string
+        name string
+        status i32
+        type i32
+        error bool
+        code i32
+    }
+}
+
+
+/*
+    Getting Information
+*/
+
+get /_api/collection/:collection_name {
+    auth token
+    returns Collection
+}
+
+get /_api/collection/:collection_name/properties {
+    auth token
+    returns CollectionProperties
+}
+
+get /_api/collection/:collection_name/count {
+    auth token
+    returns {
+        count i64
+    }
+}
+
+
+
+/* Implement missing */
+
+get /_api/collection {
+    auth token
+    query {
+        excludeSystem bool?
+    }
+    returns {
+        error bool
+        result [Collection]
+    }
+}

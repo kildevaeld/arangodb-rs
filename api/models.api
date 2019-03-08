@@ -1,0 +1,14 @@
+
+record Response<T> {
+    error bool
+    code i16
+    result T
+}
+
+record User {
+    username string
+    passwd string?
+    active bool
+    extra object?
+    array [string]
+}

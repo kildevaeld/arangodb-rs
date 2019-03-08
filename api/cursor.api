@@ -1,0 +1,54 @@
+
+import ./models.api
+
+record Cursor {
+    count i32?
+    code i16
+    extra object?
+    cached bool?
+    hasMore bool?
+    result [object]?
+    error bool
+    id string
+}
+
+post /_api/cursor {
+    auth token
+    body {
+        count bool?
+        batchSize i32?
+        cache bool?
+        memoryLimit i32?
+        ttl i64?
+        query string
+        bindVars object?
+        options {
+            failOnWarning bool?
+            profile bool?
+            maxTransactionSize i32?
+            skipInaccessibleCollections bool?
+            maxWarningCount i32?
+            intermediateCommitCount i32?
+            satelliteSyncWait i32?
+            fullCount bool?
+            intermediateCommitSize i32?
+            optimizer {
+                rules string?
+            }
+            maxPlans i32?
+        }
+    }
+
+    returns Cursor
+}
+
+
+put /_api/cursor/:cursor_identifier {
+    auth token
+    returns Cursor
+}
+
+delete /_api/cursor/:cursor_identifier {
+    auth token
+    returns void
+}

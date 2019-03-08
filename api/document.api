@@ -1,0 +1,72 @@
+
+get /_api/document/:document_handle {
+    auth token
+    /* Imple headers */
+    headers [
+        if-none-match?, if-match?
+    ]
+    returns object
+
+}
+
+head /_api/document/:document_handle {
+    returns void
+}
+
+
+post /_api/document/:collection {
+    auth token
+    query {
+        waitForSync bool?
+        returnNew bool?
+        silent bool?
+    }
+    returns object
+}
+
+put /_api/document/:document_handle {
+    auth token
+    body object
+    query {
+        waitForSync bool?
+        ignoreRevs bool?
+        returnOld bool?
+        returnNew bool?
+        silent bool?
+    }
+
+    returns object
+
+    description {
+        Replace a document
+    }
+}
+
+patch /_api/document/:document_handle {
+    auth token
+    body object
+    query {
+        keepNull bool?
+        mergeObjects bool?
+        waitForSync bool?
+        ignoreRevs bool?
+        returnOld bool?
+        returnNew bool?
+        silent bool? 
+    }
+    returns object
+}
+
+delete /_api/document/:document_handle {
+    auth token
+    
+    query {
+        waitForSync bool
+        returnOld bool
+        silent bool
+    }
+    
+    body object
+    
+    returns object
+}

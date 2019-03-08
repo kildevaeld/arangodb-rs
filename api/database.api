@@ -1,0 +1,49 @@
+
+
+import ./models.api
+
+record DatabaseListResponse {
+    error bool
+    code i16
+    result [string]
+}
+
+get /_api/database/current {
+    auth token
+    returns Response<{
+        id string
+        name string
+        path string
+        isSystem bool
+    }>
+    description {
+        Get current database
+    }
+}
+
+get /_api/database/user {
+    auth token
+    returns DatabaseListResponse
+}
+
+get /_api/database {
+    auth token
+    returns DatabaseListResponse
+}
+
+post /_api/database {
+    auth token
+    body {
+        name string
+        users [User]
+    }
+    returns Response<bool>
+    description {
+        Create new database
+    }
+}
+
+delete /_api/database/:database_name {
+    auth token
+    returns Response<bool>
+}

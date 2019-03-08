@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "arangodb-http",
+    "arangodb",
+    "aql"
+]

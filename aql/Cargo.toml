@@ -1,0 +1,8 @@
+[package]
+name = "aql"
+version = "0.1.0"
+authors = ["Rasmus Kildevæld <rasmuskildevaeld@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+arangodb = { path = "../arangodb" }

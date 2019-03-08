@@ -1,0 +1,24 @@
+
+
+post /_api/transaction {
+    body {
+        maxTransactionSize i64?
+        lockTimeout i32?
+        waitForSync bool?
+        intermediateCommitCount i32?
+        params [object]
+        intermediateCommitSize i32?
+        action string
+        collections {
+            write [string]
+            read [string]
+        }
+    }
+    returns {
+        error bool
+        code i16
+        result object?
+        errorNum i32?
+        errorMessage string?
+    }
+}
